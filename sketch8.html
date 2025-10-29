@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Circle Burst — p5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+      <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">    
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Bitcount Grid Single';
+        overflow: hidden;
+        background: #000;
+      }
+      canvas {
+        display: block;
+      }
+      #instructions {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f8f8f8;
+        color: #333;
+        font-size: 18px;
+        text-align: center;
+        padding: 10px 0;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="instructions">MOVE MOUSE</div>
+    <script>
+let columns = 20;
+let rows = 20;
+let rotator = 0;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  rectMode(CENTER);
+  noStroke();
+  angleMode(DEGREES);
+}
+
+function draw() {
+  //background(200, 150, 250);
+  rotator += 1;
+
+  for (let i = 0; i < columns; i++) {
+    for (let j = 0; j < rows; j++) {
+
+      let x = i * (width) / 20;
+      let y = j * (height) / 20;
+      let mouseD = abs(dist(mouseX, mouseY, x+5, y+5));
+      let size = mouseD/10;
+      let speed = mouseD/100;
+      let rotation = rotator * speed;
+
+      push();
+      translate(x, y);
+      rotate(rotation);
+      fill( 255 * sin(rotation), 0, 255 * cos(rotation/2, 10), 10);
+      circle(20*mouseD/120, 20*mouseD/120, size);
+      pop();
+    }
+  }
+}
+    </script>
+  </body>
+</html>
